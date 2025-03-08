@@ -3,6 +3,7 @@ package com.emissor.nfe.entity;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table (name = "NOTA_FISCAL")
@@ -10,7 +11,8 @@ public class NotaFiscal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "ID_NOTA_FISCAL")
+    private Long idNotaFiscal;
 
     @Column(name = "IDE_CUF", nullable = false, length = 2)
     private Integer cUF;
@@ -71,4 +73,8 @@ public class NotaFiscal {
 
     @Column(name = "IDE_VERPROC", nullable = false, scale = 20)
     private String verProc;
+
+    @OneToMany(mappedBy = "notaFiscal", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<NotaFiscalProdutos> notaFiscalProdutosList;
+
 }
